@@ -1,0 +1,25 @@
+Current status - Early alpha
+Curent implementation status - generated qr codes on request, no auth, no update, no getqr, no sync
+
+Register.qr opensource system
+
+Principles:
+1) ServerQRgen app - dedicated server to be integrated with the client's apps by using it's public API
+2) LocalQRcheck - local app which is syncs with ServerQRgen with API and process the registration 
+
+API of ServerQRgen:
+
+Public: availble for the clients
+https://host/api/v1/submit/ - gets information about newly registered user.
+https://host/api/v1/update/ - update information about user
+https://host/api/v1/getqr/ - get link to qr for already registered user
+
+Self-Public: availbale only for LocalQRcheck 
+https://host/sync/v1/submit - post json file to SeverQRgen to submit changes
+https://host/sync/v1/get - get json file with fresh info from ServerQRgen
+
+Auth
+Client will be authorized with token-based auth. Token and Secret key are generated while registration of new client
+Token should be added to every request, while secret key is used to sign the requests
+
+Each LocalQRcheck installation should be registered within the customer and it will get it's own token and secret key
